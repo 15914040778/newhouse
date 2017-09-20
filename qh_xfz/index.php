@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-
+<html>
 	<head>
 		<meta http-equiv="Cache-Control" content="no-transform" />
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 		<title>卓越前海壹号 - 宏居网</title>
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -1990,7 +1990,7 @@
 		<script type="text/javascript" src="js/qfang-newhsdetails-local.js"></script>
 		<script type="text/javascript" src="js/qfang-im2-newhouse.js"></script>
 		<script src="js/jquery.colorbox-min.js"></script>
-
+		<script src="js/jquery-1.10.2.min.js" ></script>
 		<script>
 			$(document).ready(function() {
 
@@ -2108,7 +2108,7 @@
 							<i class="iconfont icon-shouji"></i>
 							<input type="text" class="tel_h" placeholder="请输入您的手机号"/>
 						</div>
-						<a class="tijiao_a" style="color: #fff;">提交</a>
+						<a class="tijiao_liuyan" style="color: #fff;">提交</a>
 					</div>
 				</div>
 				<div class="pr agent_info succ_tijiaotis" style="display: none;">
@@ -2123,21 +2123,22 @@
 				</div>
 			</div>
 		</script>
+
 		<script type="text/javascript">
-			
-				//弹出窗口
-				$(".popsmall_layer").click(function(){
-					$("#x_layer").css("display","block");
-					
-    					//得到楼盘标题
-    					var loupan_title = $(".house-correlation .title").val();
-    					//得到当前点击的文本
-    					var tijiao_title = $(this).attr("data-title");
-    					//$(this).val();
-//  					alert(tijiao_title);
-    					
-    					//当前点击弹窗描述         提交成功后描述
-    					switch(tijiao_title) {
+
+					//弹出窗口
+					$(".popsmall_layer").click(function(){
+						$("#x_layer").css("display","block");
+						
+						//得到楼盘标题
+						var loupan_title = $(".house-correlation .title").val();
+						//得到当前点击的文本
+						var tijiao_title = $(this).attr("data-title");
+
+	//  					alert(tijiao_title);
+						
+						//当前点击弹窗描述         提交成功后描述
+						switch(tijiao_title) {
 							case '降价通知':
 								var tijiao_miaoshu="此楼盘价格如有变化，我们会及时通知您！";
 								var success_tishi = "订阅成功";
@@ -2194,65 +2195,72 @@
 								var success_miaoshu = "我们的金牌销售顾问将尽快与您联系，谢谢！";
 								break;
 						}
-//  					alert(tijiao_miaoshu);
-    					//获取模板数据
-                        $template = $("#duo_tanchuan").html();
-                        //替换数据
-                        $template = $template.replace("{{lay_title}}", tijiao_title);//弹窗标题
-                        $template = $template.replace("{{lay_mianshu}}", tijiao_miaoshu);//弹窗描述
-                        
-                        $template = $template.replace("{{lay_sutitle}}", tijiao_title);//弹窗成功后标题
-                        $template = $template.replace("{{lay_sutishi}}", success_tishi);//弹窗成功后提示
-                        $template = $template.replace("{{lay_sumiaoshu}}", success_miaoshu);//弹窗成功后描述
+	//  					alert(tijiao_miaoshu);
+						//获取模板数据
+	                    $template = $("#duo_tanchuan").html();
+	                    //替换数据
+	                    $template = $template.replace("{{lay_title}}", tijiao_title);//弹窗标题
+	                    $template = $template.replace("{{lay_mianshu}}", tijiao_miaoshu);//弹窗描述
+	                    
+	                    $template = $template.replace("{{lay_sutitle}}", tijiao_title);//弹窗成功后标题
+	                    $template = $template.replace("{{lay_sutishi}}", success_tishi);//弹窗成功后提示
+	                    $template = $template.replace("{{lay_sumiaoshu}}", success_miaoshu);//弹窗成功后描述
 						
-//						console.log($template);
+	//						console.log($template);
 						//追加
 						$("#x_layer").html($template);
-						$(function() {
-							//关闭弹窗
-							$(".closes_yy2").click(function(){
-								$(this).parents("#x_layer").css("display","none");
-							});
-							
-							$(".tijiao_a").click(function(){
-								var p = $.trim($(".tel_h").val());
-			    				if(p == "") {
-			    					alert("号码不能为空！");
-			    					return;
-			    				} else if(!p.match(/^1[34578]\d{9}$/)) {
-			    					alert("号码格式不正确！");
-			    					$(".tel_h").val("");
-			    				}else{
-			    					//获取网站名称
-			    					$yemianmingcheng = $("title").eq(0).text();
-			    					$weizhi = $(this).parent(".textc").siblings(".agent_shang").find("h2.title_agesh").text();
-			    					
-			    					$.ajax({
-			    						type:"POST",
-			    						data:{
-			    							"chenghu":"PC端-"+"深圳新房站"+"-新房内容页",
-			    							"dianhua":$(".tel_h").val(),
-			    							"type":$weizhi,
-			    							"bmym_mingcheng":$yemianmingcheng,
-			    							"bmym_url":window.location.href,
-			    						},
-			    						url:"http://www.at58.com/sz/wp-json/get/v1/insert_liuyanban",
-			    						cache:true,
-			    						dataType:"json",
-			    						header:{
-				                            "Content-Type":"application/x-www-form-urlencoded;charset=utf-8",
-				                        },
-			    						success:function(data){
-			    							$(this).parents(".onetel_layer").find(".succ_tijiaotis").css("display","block");
-			    						},
-			    						error:function(){
-			    							alert("报名失败！");
-			    						}
-			    					})
-			    					
-			                    }
-			               });
-				});
+
+
+						//关闭弹窗
+						$(".closes_yy2").click(function(){
+							$(this).parents("#x_layer").css("display","none");
+						});
+						
+						$(".tijiao_liuyan").click(function(){
+							var p = $.trim($(".tel_h").val());
+		    				if(p == "") {
+		    					alert("号码不能为空！");
+		    					return;
+		    				} else if(!p.match(/^1[34578]\d{9}$/)) {
+		    					alert("号码格式不正确！");
+		    					$(".tel_h").val("");
+		    				}else{
+		    					//获取网站名称
+		    					$yemianmingcheng = $("title").eq(0).text();
+		    					$weizhi = $(this).parent(".textc").siblings(".agent_shang").find("h2.title_agesh").text();
+		    					
+		    					$.ajax({
+		    						type:"POST",
+		    						data:{
+		    							"chenghu":"PC端-"+"深圳新房站"+"-新房内容页",
+		    							"dianhua":"15914040778",
+		    							"type":$weizhi,
+		    							"bmym_mingcheng":$yemianmingcheng,
+		    							"bmym_url":window.location.href,
+		    						},
+		    						url:"http://www.at58.com/sz/wp-json/get/v1/insert_liuyanban",
+		    						cache:true,
+		    						dataType:"json",
+		    						header:{
+			                            "Content-Type":"application/x-www-form-urlencoded;charset=utf-8"
+			                        },
+		    						success:function(data){
+		    							$(".tijiao_liuyan").eq($(this).index()).parents(".onetel_layer").find(".succ_tijiaotis").css("display","block");
+		    						},
+		    						error:function(XMLHttpRequest, textStatus, errorThrown){
+		    							alert("报名失败！");
+		    							console.log(XMLHttpRequest);
+		    							console.log(textStatus);
+		    							console.log(errorThrown);
+		    						}
+		    					})
+		    					
+		                    }
+		               });
+		
+					})
+				
+					
 				
 				
 				//楼盘图片分页
@@ -2336,7 +2344,6 @@
 						$("#brokerO2o").removeClass("top_32");
 					}
 					var scrollBottom = $(document).height() - $(window).scrollTop();
-
 				});
 				/**
 				 * 点击预约看房
@@ -2451,7 +2458,7 @@
 						}
 					})
 				})
-			});
+
 		</script>
 
 	</body>
